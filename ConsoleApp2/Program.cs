@@ -15,7 +15,7 @@ internal class Program
         Random rnd = new Random();
 
         List<string> words = new List<String>();
-        string filename = @"C:\Users\Isaac\source\repos\ConsoleApp2\ConsoleApp2\words.txt";
+        string filename = @"C:\Users\isaac\source\repos\ConsoleApp2\ConsoleApp2\words.txt";
         var lines = File.ReadLines(filename);
         foreach (var line in lines)
         {
@@ -25,8 +25,6 @@ internal class Program
         int r = rnd.Next(words.Count);
 
         String word = words[r];
-        Console.WriteLine(word);
-
 
         var currentGuess = new List<char>
         {
@@ -37,15 +35,20 @@ internal class Program
             '_'
         };
 
+        int lives = 5;
+
         // the game
-            while (true)
+            while (lives > 0)
             {
-                Console.WriteLine("-----------------------------------------\n\n\n");
+                
+                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine("Lives: " + lives);
                 foreach (char i in currentGuess)
                 {
                     Console.Write(i);
+
                 }
-                
+                Console.WriteLine();
                 Console.WriteLine("Please, guess the word!");
                 string Guess = Console.ReadLine();
                 var characters = new List<char>();
@@ -61,8 +64,9 @@ internal class Program
                             {
                                 Console.WriteLine(i + " is in the word, but not that spot");
                                 characters.Add(i);
-                                
-                            }
+                                currentGuess[index] = i;
+
+                        }
                             else
                             {
                                 Console.WriteLine(i + " is correct!");
@@ -92,9 +96,13 @@ internal class Program
                 }
                 else
                 {
-                    continue;
+                lives -= 1;
+                continue;
                 }
             }
+
+        Console.WriteLine("Incorrect! The word was " + word);
+        Console.ReadLine();
         }
 
 
